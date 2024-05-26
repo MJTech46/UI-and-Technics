@@ -1,0 +1,12 @@
+.icons{
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: inherit;
+}
+
+.icons img {
+    height: 38px;
+    width: 38px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
