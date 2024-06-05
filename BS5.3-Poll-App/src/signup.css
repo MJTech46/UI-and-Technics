@@ -1,0 +1,10 @@
+body{
+    background-image: url("https://images.hdqwalls.com/wallpapers/cool-blur-abstract-4k-nd.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
