@@ -16,7 +16,7 @@ def encrypt_message(message, password):
     key = generate_key(password)
     fernet = Fernet(key)
     encrypted_message = fernet.encrypt(message.encode())
-    return encrypted_message
+    return encrypted_message.decode("utf-8") # to return as the normal str obj
 
 # Decrypt the message
 def decrypt_message(encrypted_message, password):
@@ -34,7 +34,9 @@ if __name__ == "__main__":
     # Encrypt the message
     encrypted_message = encrypt_message(message, password)
     print("Encrypted:", encrypted_message)
+    print("type: ", type(encrypted_message))
 
     # Decrypt the message
     decrypted_message = decrypt_message(encrypted_message, password)
     print("Decrypted:", decrypted_message)
+    print("type: ", type(decrypted_message))

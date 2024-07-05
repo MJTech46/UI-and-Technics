@@ -38,6 +38,8 @@ password = "mysecretpassword"
 
 encrypted = encrypt_message(message, password)
 print("Encrypted:", encrypted)
+print("type: ", type(encrypted))
 
 decrypted = decrypt_message(encrypted, password)
 print("Decrypted:", decrypted)
+print("type: ", type(decrypted))
