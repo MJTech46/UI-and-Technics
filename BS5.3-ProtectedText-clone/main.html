@@ -21,6 +21,30 @@
             width: 100%;
             height: calc(75vh);
         }
+        .Custom-modal-color{
+            background-color: rgb(31, 31, 31);
+        }
+        .Custom-modal-transparent-bg{
+            background: url("img/main/bg-diagonals-thick.png");
+            background-position-x: 50%;
+            background-position-y: 50%;
+            background-size: initial;
+            background-repeat: repeat;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+            opacity: 0.8;
+        }
+        .Custom-modal-img-bg{
+            background-image: url("img/main/bg-gloss-wave.png");
+            background-position-x: 50%;
+            background-position-y: 50%;
+            background-size: initial;
+            background-repeat: repeat-x;
+            background-attachment: initial;
+            background-origin: initial;
+            background-clip: initial;
+        }
     </style>
 </head>
 
@@ -86,21 +110,30 @@
     <!-- BS5.3 Modal -->
 
     <!-- inital Modal -->
-    <div class="modal fade " id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
-        <div  class="modal-dialog modal-dialog-centered ">
-            <div class="modal-content bg-dark text-white">
-                <!-- modal head -->
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                </div>
-                <!-- modal body -->
-                <div class="modal-body">
-                    ...
+    <div class="modal fade Custom-modal-transparent-bg" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div  class=" modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content Custom-modal-color text-white ">
+                <!-- modal footer -->
+                <div class="modal-header border-0 p-2 " >
+                    <div class="Custom-modal-img-bg w-100 h-100 p-2 rounded-1">
+                        <h6 class="text-start m-0"><strong>Password required</strong></h6>
+                    </div>
                 </div>
                 <!-- modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
+                <div class="modal-body">
+                    <p class="fst-italic" style="font-size: 15.5px;">This site (this URL) is already occupied. If this is your site enter the password, or you can try using <a href="/" class="text-white">different site</a>.</p>
+                    <div>
+                        <label for="password-input" class="col-10" style="font-size: 13px;">
+                            <strong>Password used to encrypt this site:</strong>
+                        </label>
+                        <input type="password" class="col-10">
+                    </div>
+                </div>
+                <!-- modal footer -->
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-light">
+                        <strong class="text-black">Decrypt this site</strong>
+                    </button>
                 </div>
             </div>
         </div>
