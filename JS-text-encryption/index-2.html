@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python to JavaScript Example</title>
+</head>
+<body>
+    <script>
+        // Equivalent JavaScript code for encrypting a message
+        function encryptMessage(message, password) {
+            const salt = crypto.getRandomValues(new Uint8Array(16));
+            const key = await crypto.subtle.importKey(
+                "raw",
+                new TextEncoder().encode(password),
+                { name: "AES-GCM", length: 256 },
+                false,
+                ["encrypt"]
+            );
+            const iv = crypto.getRandomValues(new Uint8Array(16));
+            const encodedMessage = new TextEncoder().encode(message);
+            const encrypted = await crypto.subtle.encrypt(
+                { name: "AES-GCM", iv },
+                key,
+                encodedMessage
+            );
+            const combined = new Uint8Array(salt.length + iv.length + encrypted.byteLength);
+            combined.set(salt, 0);
+            combined.set(iv, salt.length);
+            combined.set(new Uint8Array(encrypted), salt.length + iv.length);
+            return btoa(String.fromCharCode(...combined));
+        }
+
+        // Equivalent JavaScript code for decrypting a message
+        function decryptMessage(encryptedMessage, password) {
+            const combined = new Uint8Array(atob(encryptedMessage).split("").map(c => c.charCodeAt(0)));
+            const salt = combined.slice(0, 16);
+            const iv = combined.slice(16, 32);
+            const encrypted = combined.slice(32);
+            const key = await crypto.subtle.importKey(
+                "raw",
+                new TextEncoder().encode(password),
+                { name: "AES-GCM", length: 256 },
+                false,
+                ["decrypt"]
+            );
+            const decrypted = await crypto.subtle.decrypt(
+                { name: "AES-GCM", iv },
+                key,
+                encrypted
+            );
+            return new TextDecoder().decode(decrypted);
+        }
+
+        // Example usage
+        const message = "Hello, World!";
+        const password = "mysecretpassword";
+
+        const encrypted = encryptMessage(message, password);
+        console.log("Encrypted:", encrypted);
+
+        const decrypted = decryptMessage(encrypted, password);
+        console.log("Decrypted:", decrypted);
+    </script>
+</body>
+</html>
