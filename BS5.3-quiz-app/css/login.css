@@ -1,0 +1,12 @@
+body{
+    background-image: url(/img/login/OIP.jpg);
+    background-repeat: repeat;
+    background-color: black;
+    color: white;
+}
+
+.login-container {
+    padding-top: 10%;
+    backdrop-filter: blur(10px);
+    padding-bottom: 10%;
+}
