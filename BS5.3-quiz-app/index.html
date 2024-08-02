@@ -19,15 +19,17 @@
                 <p>Let's make this day productive</p>
             </div>
             <div class="custom-icon">
-                <img src="img/person_unknown_icon.png" alt="person_unknown_icon">
+                <button type="button" class="btn rounded-5 p-0 m-0" data-bs-toggle="modal" data-bs-target="#changePicModal">
+                    <img src="img/person_unknown_icon.png" alt="person_unknown_icon">
+                </button>
             </div>
         </div>
    </div>
-    <!-- staticstics -->
+    <!-- statistics -->
    <div class="d-flex justify-content-center mt-4">
-        <div id="staticstics" class="d-flex flex-row justify-content-around  p-3 border rounded-4 shadow-lg" style="width: 90%;">
+        <div id="statistics" class="d-flex flex-row justify-content-around  p-3 border rounded-4 shadow-lg" style="width: 90%;">
             <!-- points -->
-            <div class="p-1 ">
+            <a class="p-1 btn" href="/redeem.html">
                 <div class="d-flex flex-row gap-3">
                     <div class="align-content-center">
                         <img src="img/points-96.png" alt="points" style="height: 50px; width: 50px;">
@@ -37,11 +39,11 @@
                         <h4>3644</h4>
                     </div>
                 </div>
-            </div>
+            </a>
             <!-- border separator -->
             <div class="border-start border-end"></div> 
             <!-- Rewards -->
-            <div class="p-1">
+            <a class="p-1 btn" href="/redeem.html">
                 <div class="d-flex flex-row gap-3">
                     <div class="align-content-center">
                         <img src="img/gift-box-64.png" alt="points" style="height: 50px; width: 50px;">
@@ -51,7 +53,7 @@
                         <h4>7</h4>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
    </div>
    <!-- Let's play -->
@@ -96,6 +98,25 @@
             
         </div>
     </div>
+    <!-- bootstrap modals -->
+    <div class="modal fade" id="changePicModal" tabindex="-1" aria-labelledby="changePicModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="changePicModalLabel">Change profile picture</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+              <h4>Choose a image file:</h4>
+              <input type="file" name="" id="" accept="image/*">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
