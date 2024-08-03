@@ -6,61 +6,103 @@
     <title>Python to JavaScript Example</title>
 </head>
 <body>
+    <!--
+        This code uses the Web Crypto API to perform the necessary cryptographic operations.
+        This JavaScript implementation assumes the use of modern browsers that support the Web Crypto API.
+    -->
     <script>
-        // Equivalent JavaScript code for encrypting a message
-        function encryptMessage(message, password) {
-            const salt = crypto.getRandomValues(new Uint8Array(16));
-            const key = await crypto.subtle.importKey(
-                "raw",
-                new TextEncoder().encode(password),
-                { name: "AES-GCM", length: 256 },
-                false,
-                ["encrypt"]
-            );
-            const iv = crypto.getRandomValues(new Uint8Array(16));
-            const encodedMessage = new TextEncoder().encode(message);
-            const encrypted = await crypto.subtle.encrypt(
-                { name: "AES-GCM", iv },
+        async function encryptMessage(message, password) {
+            // Generate a random salt
+            const salt = window.crypto.getRandomValues(new Uint8Array(16));
+
+            // Derive a key using the password and salt
+            const keyMaterial = await getKeyMaterial(password);
+            const key = await deriveKey(keyMaterial, salt);
+
+            // Generate a random initialization vector
+            const iv = window.crypto.getRandomValues(new Uint8Array(16));
+
+            // Create AES-GCM cipher
+            const encryptedContent = new TextEncoder().encode(message);
+            const cipherText = await window.crypto.subtle.encrypt(
+                { name: "AES-GCM", iv: iv },
                 key,
-                encodedMessage
+                encryptedContent
             );
-            const combined = new Uint8Array(salt.length + iv.length + encrypted.byteLength);
-            combined.set(salt, 0);
-            combined.set(iv, salt.length);
-            combined.set(new Uint8Array(encrypted), salt.length + iv.length);
-            return btoa(String.fromCharCode(...combined));
+
+            // Combine salt, iv, and cipher text
+            const encryptedMessage = new Uint8Array(salt.length + iv.length + cipherText.byteLength);
+            encryptedMessage.set(salt);
+            encryptedMessage.set(iv, salt.length);
+            encryptedMessage.set(new Uint8Array(cipherText), salt.length + iv.length);
+
+            // Encode the encrypted message in base64 for readability
+            return btoa(String.fromCharCode(...encryptedMessage));
         }
 
-        // Equivalent JavaScript code for decrypting a message
-        function decryptMessage(encryptedMessage, password) {
-            const combined = new Uint8Array(atob(encryptedMessage).split("").map(c => c.charCodeAt(0)));
-            const salt = combined.slice(0, 16);
-            const iv = combined.slice(16, 32);
-            const encrypted = combined.slice(32);
-            const key = await crypto.subtle.importKey(
+        async function decryptMessage(encryptedMessage, password) {
+            // Decode the base64 encoded message
+            const encryptedData = Uint8Array.from(atob(encryptedMessage), c => c.charCodeAt(0));
+
+            // Extract the salt, iv, and encrypted content
+            const salt = encryptedData.slice(0, 16);
+            const iv = encryptedData.slice(16, 32);
+            const cipherText = encryptedData.slice(32);
+
+            // Derive the key using the password and salt
+            const keyMaterial = await getKeyMaterial(password);
+            const key = await deriveKey(keyMaterial, salt);
+
+            // Create AES-GCM cipher
+            const decryptedContent = await window.crypto.subtle.decrypt(
+                { name: "AES-GCM", iv: iv },
+                key,
+                cipherText
+            );
+
+            return new TextDecoder().decode(decryptedContent);
+        }
+
+        async function getKeyMaterial(password) {
+            const encoder = new TextEncoder();
+            return window.crypto.subtle.importKey(
                 "raw",
-                new TextEncoder().encode(password),
+                encoder.encode(password),
+                "PBKDF2",
+                false,
+                ["deriveBits", "deriveKey"]
+            );
+        }
+
+        async function deriveKey(keyMaterial, salt) {
+            return window.crypto.subtle.deriveKey(
+                {
+                    name: "PBKDF2",
+                    salt: salt,
+                    iterations: 2**14,
+                    hash: "SHA-256"
+                },
+                keyMaterial,
                 { name: "AES-GCM", length: 256 },
                 false,
-                ["decrypt"]
+                ["encrypt", "decrypt"]
             );
-            const decrypted = await crypto.subtle.decrypt(
-                { name: "AES-GCM", iv },
-                key,
-                encrypted
-            );
-            return new TextDecoder().decode(decrypted);
         }
 
         // Example usage
-        const message = "Hello, World!";
-        const password = "mysecretpassword";
+        (async () => {
+            const message = "Hello, World!";
+            const password = "mysecretpassword";
 
-        const encrypted = encryptMessage(message, password);
-        console.log("Encrypted:", encrypted);
+            const encrypted = await encryptMessage(message, password);
+            console.log("Encrypted:", encrypted);
+            console.log("type:", typeof encrypted);
 
-        const decrypted = decryptMessage(encrypted, password);
-        console.log("Decrypted:", decrypted);
+            const decrypted = await decryptMessage(encrypted, password);
+            console.log("Decrypted:", decrypted);
+            console.log("type:", typeof decrypted);
+        })();
+
     </script>
 </body>
 </html>
