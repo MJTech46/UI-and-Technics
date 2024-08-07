@@ -1,0 +1,14 @@
+.custom-nav{
+    background: rgb(246,108,94); 
+    background: linear-gradient(90deg, rgba(246,108,94,1) 45%, rgba(250,134,73,1) 68%);
+}
+
+.uts-logo{
+    height: 50px;
+    width: 50px;
+}
+
+.three-dots-logo{
+    height: 32px;
+    width: 32px;
+}
