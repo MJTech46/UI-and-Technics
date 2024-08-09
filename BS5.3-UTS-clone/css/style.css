@@ -8,7 +8,17 @@
     width: 50px;
 }
 
-.three-dots-logo{
+.other-nav-logos{
     height: 32px;
     width: 32px;
+}
+
+.rounded-div-logos{
+    height: 45px;
+    width: 45px;
+}
+
+.three-dots-logo{
+    height: 20px;
+    width: 20px;
 }
