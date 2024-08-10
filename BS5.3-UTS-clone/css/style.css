@@ -22,3 +22,16 @@
     height: 20px;
     width: 20px;
 }
+
+.grid-nav-bg{
+    background-color: rgb(243, 243, 243);
+}
+
+.grid-icons-div{
+    width: 33vw;
+}
+
+.grid-icons-div h6{
+    font-size: 14px;
+    font-weight: 600;
+}
