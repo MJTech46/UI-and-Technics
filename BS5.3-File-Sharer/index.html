@@ -10,7 +10,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
 </head>
 
-<body class="bg-body-secondar">
+<body style="background-color: #2e3138;">
     <!-- nav bar -->
     <nav
         class="d-flex justify-content-center bg-info-subtle bg-white p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
@@ -18,16 +18,16 @@
     </nav>
 
     <!-- main div -->
-    <div class="d-flex flex-column gap-5 justify-content-center align-items-center" style="height: calc(75vh)">
+    <div class="d-flex flex-column gap-5 justify-content-center align-items-center" style="min-height: calc(75vh)">
 
         <!-- send div -->
-        <div class="bg-white shadow rounded-3 p-4">
+        <div class="shadow rounded-3 p-4" style="background-color: white">
             <div style="width: calc(30vw); height: calc(25vh)">
                 <h2 class="text-black">Send</h2>
                 <!-- button div -->
                 <div class="d-flex flex-column justify-content-center align-items-center">
-                    <button class="btn">
-                        <img src="images/add-icon.png" alt="add-icon" height="100px" width="100px" />
+                    <button class="btn border-0">
+                        <img src="images/add-icon.png" alt="add-icon" height="90px" width="90px" />
                     </button>
                 </div>
             </div>
@@ -42,7 +42,11 @@
                     <!-- input field -->
                     <div class="input-group mb-3" style="width: 90%;">
                         <input type="text" class="form-control" placeholder="Enter the code" aria-label="Username" aria-describedby="basic-addon1">
-                        <span class="input-group-text" id="basic-addon1">@</span>
+                        <span>
+                            <button class="btn btn-dark rounded-0 rounded-end-2">
+                                <img src="images/download-icon.png" alt="download-icon" height="32px" width="32px">
+                            </button>
+                        </span>
                     </div>
                 </div>
             </div>
